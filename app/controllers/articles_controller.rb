@@ -2,7 +2,7 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: [:edit, :update, :show, :destroy]
 
   def index
-    @articles = Article.paginate(page: params[:page], per_page: 5)
+    @articles = Article.order(created_at: "desc").paginate(page: params[:page], per_page: 3)
   end
 
   def new
@@ -25,6 +25,10 @@ class ArticlesController < ApplicationController
   end
 
   def edit
+    if @article.user_id != session[:user_id]
+      flash[:danger] = "You can't edit this article"
+      redirect_to article_path(@article)
+    end
   end
 
   def update
@@ -43,7 +47,7 @@ class ArticlesController < ApplicationController
       flash[:success] = "Article was deleted"
       redirect_to articles_path
     else
-      flash[:success] = "You can't deleted this article"
+      flash[:danger] = "You can't deleted this article"
       redirect_to article_path(@article)
     end
   end

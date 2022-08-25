@@ -9,32 +9,59 @@ $navbar-default-bg: black;
   letter-spacing: -1px;
   font-weight: bold;
 }
+
 #logo:hover {
   color: #fff;
   text-decoration: none;
 }
+
 .article-actions {
   border-top: 1px solid #eaeaea;
   padding-top: 5px;
 }
+
 .article-title {
   font-weight: bold;
   font-size: 1.5em;
 }
+
 .article-body {
   border-top: 1px solid #eaeaea;
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
+
 .article-meta-details {
   border-top: 1px solid #eaeaea;
-  margin-top: 15px;
 }
+
 .description {
   margin-top: 0;
 }
+
 .listing {
   list-style: none;
   padding-left: 0;
 }
-body { padding-top: 70px; }
+
+$marg: 13px;
+body {
+  padding-top: 70px;
+}
+
+.my-nav-button {
+  margin: $marg 10px $marg 0;
+}
+
+.ul-my-button {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  //display: flex;
+  //justify-content: space-between;
+  li {
+    display: inline-block;
+    margin-right: 10px;
+  }
+}
+

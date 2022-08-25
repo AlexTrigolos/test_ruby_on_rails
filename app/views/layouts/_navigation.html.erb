@@ -20,13 +20,13 @@
       </ul>
       <ul class="nav navbar-right navbar-nav">
         <% if logged_in? %>
-          <li><%= link_to "Log out", logout_path, method: :delete, form: {data: {confirm: 'Are you sure?'}}, class: "btn-xs btn-danger" %></li>
+          <li>
+            <%= button_to "Log out", logout_path, method: :delete, class: "btn-xs btn-danger my-nav-button", onclick: "return ask(\"Are you sure?\");" %>
+          </li>
         <% else %>
-          <li><%= link_to "Sign up", signup_path, method: :get, class: "btn-xs btn-warning" %></li>
-          <li class="btn"></li>
-          <li><%= link_to "Log in", login_path, method: :get, class: "btn-xs btn-success" %></li>
+          <li><%= button_to "Sign up", signup_path, method: :get, class: "btn-xs btn-warning my-nav-button" %></li>
+          <li><%= button_to "Log in", login_path, method: :get, class: "btn-xs btn-success my-nav-button" %></li>
         <% end %>
-        <li class="btn"></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
