@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   helper_method :current_user, :logged_in?
@@ -15,7 +17,9 @@ class ApplicationController < ActionController::Base
   def require_user
     return if logged_in?
 
-    flash[:danger] = t('.danger')
+    # rubocop:disable Rails/I18nLocaleTexts
+    flash[:danger] = 'You must be logged in to perform that action'
+    # rubocop:enable Rails/I18nLocaleTexts
     redirect_to root_path
   end
 
@@ -32,7 +36,9 @@ class ApplicationController < ActionController::Base
     return unless user&.remember_token_authenticated?(token)
 
     session[:user_id] = user.id
-    flash[:success] = t('.success')
+    # rubocop:disable Rails/I18nLocaleTexts
+    flash[:success] = 'You have logged in by cookies'
+    # rubocop:enable Rails/I18nLocaleTexts
     user
   end
 end

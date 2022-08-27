@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   attr_accessor :remember_token
 
@@ -26,7 +28,7 @@ class User < ApplicationRecord
   end
 
   def remember_token_authenticated?(remember_token)
-    return false if remember_token_digest.blank
+    return false if remember_token_digest.blank?
 
     BCrypt::Password.new(remember_token_digest).is_password?(remember_token)
   end

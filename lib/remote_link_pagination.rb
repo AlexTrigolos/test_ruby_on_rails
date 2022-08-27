@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RemoteLinkPagination
   class LinkRenderer < BootstrapPagination::Rails
     def link(text, target, attributes = {})

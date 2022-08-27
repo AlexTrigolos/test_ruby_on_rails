@@ -32,10 +32,10 @@
 en:
   hello: "Hello world"
 
-  application:
-    require_user:
-      danger: "You must be logged in to perform that action"
-    success: "You have logged in by cookies"
+#  application:
+#    require_user:
+#      danger: "You must be logged in to perform that action"
+#    success: "You have logged in by cookies"
   articles:
     destroy:
       danger: "You can't deleted this article"
