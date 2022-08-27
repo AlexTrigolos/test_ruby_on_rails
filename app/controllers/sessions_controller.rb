@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
     if user&.authenticate(params[:session][:password])
       authenticated(user)
     else
-      flash.now[:warning] = 'There was something wrong with your login information'
+      flash[:warning] = t('.warning')
       render 'new'
     end
   end

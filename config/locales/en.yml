@@ -40,9 +40,17 @@ en:
     destroy:
       danger: "You can't deleted this article"
       success: "Article was deleted"
+    create:
+      success: "Article was successfully created"
+    edit:
+      danger: "You can't edit this article"
+    update:
+      success: "Article was updated"
+      danger: "Article was not updated, mb it's not your article"
   sessions:
     create:
       success: "Article was successfully created"
+      warning: "There was something wrong with your login information"
     destroy:
       success: "You have logged out"
     edit:

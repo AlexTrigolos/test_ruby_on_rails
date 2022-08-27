@@ -19,7 +19,7 @@ class ArticlesController < ApplicationController
       flash[:success] = t('.success')
       redirect_to article_path(@article)
     else
-      render action: :new
+      render :new
     end
   end
 
