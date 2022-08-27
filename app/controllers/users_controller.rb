@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
-
   def index
-    @users = User.paginate(page: params[:page], per_page: 5)
+    @users = User.order(created_at: 'asc').paginate(page: params[:page], per_page: 5)
   end
 
   def new
@@ -25,7 +24,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      flash[:success] = "Your account was updated successfully"
+      flash[:success] = t('.success')
       redirect_to articles_path
     else
       render 'edit'
@@ -38,6 +37,7 @@ class UsersController < ApplicationController
   end
 
   private
+
   def user_params
     params.require(:user).permit(:username, :email, :password)
   end
