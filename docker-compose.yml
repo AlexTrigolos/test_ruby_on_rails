@@ -1,12 +1,17 @@
-version: '2'
+version: '3'
 services:
   db:
     image: postgres:14
+    environment:
+      - POSTGRES_DB=test_app_rails_development
+      - POSTGRES_USER=test_app_rails
+      - POSTGRES_PASSWORD=administrator
   web:
     build: .
     command: bundle exec rails s -p 3000 -b '127.0.0.1'
     volumes:
       - .:/test_app_rails
+    hostname: localhost
     ports:
       - "3000:3000"
     depends_on:
