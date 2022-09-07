@@ -50,6 +50,10 @@ gem 'bootsnap', require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
+group :production do
+  gem "wkhtmltopdf-heroku"
+end
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri mingw x64_mingw]
@@ -61,6 +65,7 @@ group :development do
   gem 'rubocop-performance', '~> 1.11', require: false
   gem 'rubocop-rails', '~> 2.11', require: false
   gem 'web-console'
+  gem "wkhtmltopdf-binary"
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
@@ -83,3 +88,4 @@ gem 'jquery-rails'
 gem 'sassc-rails', '>= 2.1.0'
 gem 'will_paginate', '3.3.1'
 gem 'will_paginate-bootstrap'
+gem 'wicked_pdf'
