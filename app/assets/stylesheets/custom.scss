@@ -71,9 +71,10 @@ body {
   padding: 0;
   display: flex;
   justify-content: space-between;
-  li {
-    display: inline-block;
-  }
+}
+
+.get-format li {
+  display: inline-block;
 }
 
 .custom-input {
@@ -186,4 +187,15 @@ body {
   .show {
     display: none !important;
   }
+}
+@media screen and (min-width: 992px) {
+  .row img{
+    display: block;
+    margin: 0 auto;
+  }
+}
+
+.row img{
+  display: block;
+  margin: 0 auto;
 }

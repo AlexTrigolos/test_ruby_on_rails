@@ -14,6 +14,8 @@ class ArticlesController < ApplicationController
         render index: @articles
       }
       format.pdf{
+        @articles = Article.order(created_at: 'desc')
+        @truth_format = 'pdf'
         render pdf: "Articles", template: 'articles/index', formats: [:html], layout: 'pdf'
       }
     end
