@@ -49,12 +49,12 @@ en:
       danger: "Article was not updated, mb it's not your article"
   sessions:
     create:
-      success: "Article was successfully created"
+      success: "You have successfully logged in"
       warning: "There was something wrong with your login information"
     destroy:
       success: "You have logged out"
     edit:
-      danger: "You can't edit this article"
+      danger: "You can't edit this session"
     success: "You have logged in"
     update:
       danger: "Article was not updated, mb it's not your article"
@@ -62,3 +62,5 @@ en:
   users:
     update:
       success: "Your account was updated successfully"
+    create:
+      warning: "There was something wrong with your login information"
