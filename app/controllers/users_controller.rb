@@ -42,16 +42,9 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user_articles = @user.articles.order(created_at: 'desc').paginate(page: params[:page], per_page: 3)
     respond_to do |format|
-      format.html{
-        @my_path = 'user_path'
-        render show: @user_articles
-      }
-      format.json{
-        render show: @user_articles
-      }
-      format.xml{
-        render show: @user_articles
-      }
+      format.html
+      format.json
+      format.xml
       format.pdf{
         @user_articles = @user.articles.order(created_at: 'desc')
         @truth_format = 'pdf'

@@ -1,5 +1,5 @@
 json.articles do
-  if @articles&.empty?
+  if @articles.nil? or @articles.empty?
     json.error("haven't")
   else
     json.array! @articles do |article|

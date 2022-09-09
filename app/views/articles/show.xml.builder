@@ -1,5 +1,5 @@
 xml.rss('version' => '2.0')do
-  if @articles&.empty?
+  if @article[:id].nil?
     xml.error('There is no articles')
   else
     xml.article('type' => 'article') do
