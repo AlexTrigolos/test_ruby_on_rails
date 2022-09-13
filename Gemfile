@@ -51,7 +51,7 @@ gem 'bootsnap', require: false
 # gem "image_processing", "~> 1.2"
 
 group :production do
-  gem "wkhtmltopdf-heroku"
+  gem "wkhtmltopdf-binary"
 end
 
 group :development, :test do
