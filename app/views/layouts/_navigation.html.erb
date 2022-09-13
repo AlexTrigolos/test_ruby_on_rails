@@ -2,12 +2,25 @@
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
+      <div class="dropdown">
+        <button onclick="myFunction()" class="dropbtn navbar-toggle">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <div id="myDropdown" class="dropdown-content">
+          <%= link_to "Articles", articles_path, class: "navbar-link" %>
+          <%= link_to "Create Article", new_article_path, class: "navbar-link" %>
+          <%= link_to "Users", users_path, class: "navbar-link" %>
+          <% if logged_in? %>
+              <%= button_to "Update account", update_path, method: :get, class: "btn-xs btn-warning my-nav-button" %>
+              <%= button_to "Log out", logout_path, method: :delete, class: "btn-xs btn-danger my-nav-button", onclick: "return ask(\"Are you sure?\");" %>
+          <% else %>
+            <%= button_to "Sign up", signup_path, method: :get, class: "btn-xs btn-warning my-nav-button" %>
+            <%= button_to "Log in", login_path, method: :get, class: "btn-xs btn-success my-nav-button" %>
+          <% end %>
+        </div>
+      </div>
       <%= link_to "Alpha Blog", root_path, class: "navbar-brand", id: "logo" %>
     </div>
 
@@ -20,9 +33,8 @@
       </ul>
       <ul class="nav navbar-right navbar-nav">
         <% if logged_in? %>
-          <li>
-            <%= button_to "Log out", logout_path, method: :delete, class: "btn-xs btn-danger my-nav-button", onclick: "return ask(\"Are you sure?\");" %>
-          </li>
+          <li><%= button_to "Update account", update_path, method: :get, class: "btn-xs btn-warning my-nav-button" %></li>
+          <li><%= button_to "Log out", logout_path, method: :delete, class: "btn-xs btn-danger my-nav-button", onclick: "return ask(\"Are you sure?\");" %></li>
         <% else %>
           <li><%= button_to "Sign up", signup_path, method: :get, class: "btn-xs btn-warning my-nav-button" %></li>
           <li><%= button_to "Log in", login_path, method: :get, class: "btn-xs btn-success my-nav-button" %></li>

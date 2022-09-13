@@ -4,3 +4,4 @@
 //= link_tree ../../../vendor/javascript .js
 //= link paginator.js
 //= link confirm_ask.js
+//= link navbar_button.js

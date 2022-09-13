@@ -11,5 +11,5 @@
       </div>
     </ul>
   <% end %>
-  <%= will_paginate @users %>
+  <%= will_paginate @users, renderer: RemoteLinkPagination::LinkRenderer %>
 </div>
