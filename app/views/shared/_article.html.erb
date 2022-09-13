@@ -17,29 +17,33 @@
             last updated: <%= time_ago_in_words(article.updated_at) %> ago</small>
         </div>
 
-        <div <% if @truth_format == 'pdf'%> style="display:inline;" <% end %> class="normal-width">
+        <div
+        <% if @truth_format == 'pdf' %> style="display:inline;"
+        <% end %> class="normal-width">
           <div class="article-actions">
             <ul class="ul-my-button">
               <li><%= button_to "Edit", edit_article_path(article), :method => :get, class: "btn-xs btn-primary" %></li>
               <li><%= button_to "Show", article_path(article), :method => :get, class: "btn-xs btn-success" %></li>
               <li><%= button_to "Delete", article_path(article), :method => :delete, class: "btn-xs btn-danger", onclick: "return ask(\"Are you sure you want to delete this article?\")" %></li>
-              <li><form class="button_to" method="get" action="<%= article_path(article, format: :pdf) %>"><button class="btn-xs btn-info" type="submit">PDF</button></form></li>
-              <li><form class="button_to" method="get" action="<%= article_path(article, format: :json) %>"><button class="btn-xs btn-info" type="submit">JSON</button></form></li>
-              <li><form class="button_to" method="get" action="<%= article_path(article, format: :xml) %>"><button class="btn-xs btn-info" type="submit">XML</button></form></li>
+              <li>
+                <form class="button_to" method="get" action="<%= article_path(article, format: :pdf) %>">
+                  <button class="btn-xs btn-info" type="submit">PDF</button>
+                </form>
+              </li>
+              <li>
+                <form class="button_to" method="get" action="<%= article_path(article, format: :json) %>">
+                  <button class="btn-xs btn-info" type="submit">JSON</button>
+                </form>
+              </li>
+              <li>
+                <form class="button_to" method="get" action="<%= article_path(article, format: :xml) %>">
+                  <button class="btn-xs btn-info" type="submit">XML</button>
+                </form>
+              </li>
             </ul>
           </div>
         </div>
-        <div <% if @truth_format == 'pdf'%> style="display:none;" <% end %> class="small-width">
-          <div class="article-actions">
-            <ul class="ul-my-button">
-              <li><%= button_to "Edit", edit_article_path(article), :method => :get, class: "btn-xs btn-primary" %></li>
-              <li><%= button_to "Show", article_path(article), :method => :get, class: "btn-xs btn-success" %></li>
-              <li><%= button_to "Delete", article_path(article), :method => :delete, class: "btn-xs btn-danger", onclick: "return ask(\"Are you sure you want to delete this article?\")" %></li>
-            </ul>
-          </div>
-        </div>
-        </div>
-        <div class="small-width">
+        <div <% if @truth_format == 'pdf' %> style="display:none;" <% end %> class="small-width">
           <div class="article-actions">
             <ul class="ul-my-button">
               <li><%= button_to "Edit", edit_article_path(article), :method => :get, class: "btn-xs btn-primary" %></li>
