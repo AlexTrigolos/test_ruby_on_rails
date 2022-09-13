@@ -1,6 +1,6 @@
 json.article do
-  if @articles&.empty?
-    json.error("haven't")
+  if @article[:id].nil?
+    json.error("Haven't aticle")
   else
     json.title(@article[:title])
     json.description(@article[:description])

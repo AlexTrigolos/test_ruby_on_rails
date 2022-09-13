@@ -14,6 +14,8 @@ class ArticlesController < ApplicationController
         render index: @articles
       }
       format.pdf{
+        @articles = Article.order(created_at: 'desc')
+        @truth_format = 'pdf'
         render pdf: "Articles", template: 'articles/index', formats: [:html], layout: 'pdf'
       }
     end
@@ -51,12 +53,8 @@ class ArticlesController < ApplicationController
     @article = Article.find_by(id: params[:id].to_i)
     respond_to do |format|
       format.html
-      format.json{
-        render show: @article
-      }
-      format.xml{
-        render show: @article
-      }
+      format.json
+      format.xml
       format.pdf{
         render pdf: "Article #{params[:id]}", template: 'articles/show', formats: [:html], layout: 'pdf'
       }

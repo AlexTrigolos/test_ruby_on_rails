@@ -76,6 +76,18 @@ body {
   }
 }
 
+.get-format {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.get-format li {
+  display: inline-block;
+}
+
 .custom-input {
   height: 20px;
 }
@@ -186,4 +198,15 @@ body {
   .show {
     display: none !important;
   }
+}
+@media screen and (min-width: 992px) {
+  .row img{
+    display: block;
+    margin: 0 auto;
+  }
+}
+
+.row img{
+  display: block;
+  margin: 0 auto;
 }
