@@ -71,6 +71,17 @@ body {
   padding: 0;
   display: flex;
   justify-content: space-between;
+  li {
+    display: inline-block;
+  }
+}
+
+.get-format {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
 }
 
 .get-format li {
