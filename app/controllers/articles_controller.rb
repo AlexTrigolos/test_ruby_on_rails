@@ -19,18 +19,6 @@ class ArticlesController < ApplicationController
         render pdf: "Articles", template: 'articles/index', formats: [:html], layout: 'pdf'
       }
     end
-    # respond_to do |format|
-    #   format.html
-    # format.json{
-    #   render json: @articles
-    # }
-    # format.xml{
-    #   render xml: @articles.as_json, template: 'articles/index'
-    # }
-    #   format.pdf{
-    #     render pdf: @articles
-    #   }
-    # end
   end
 
   def new
@@ -40,7 +28,6 @@ class ArticlesController < ApplicationController
   def create
     # render plain: params[:article].inspect
     @article = Article.new(article_params)
-    p article_params
     @article.user = User.find(session[:user_id]) unless session[:user_id].nil?
     if @article.save
       flash[:success] = t('.success')
@@ -51,7 +38,6 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    # p remote.ip
     @article = Article.find_by(id: params[:id].to_i)
     respond_to do |format|
       format.html

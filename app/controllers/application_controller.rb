@@ -27,8 +27,13 @@ class ApplicationController < ActionController::Base
   private
 
   def request_response_data
-    RequestResponse.create(remote_ip: request.remote_ip, request_method: request.method, request_url: request.url,
-                              response_status: response.status, response_content_type: response.content_type)
+    RequestResponse.create(
+      remote_ip: request.remote_ip,
+      request_method: request.method,
+      request_url: request.url,
+      response_status: response.status,
+      response_content_type: response.content_type
+    )
   end
 
   def user_from_session
