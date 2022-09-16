@@ -9,16 +9,8 @@
           <span class="icon-bar"></span>
         </button>
         <div id="myDropdown" class="dropdown-content">
-          <%= link_to "Articles", articles_path, class: "navbar-link" %>
-          <%= link_to "Create Article", new_article_path, class: "navbar-link" %>
-          <%= link_to "Users", users_path, class: "navbar-link" %>
-          <% if logged_in? %>
-              <%= button_to "Update account", update_path, method: :get, class: "btn-xs btn-warning my-nav-button" %>
-              <%= button_to "Log out", logout_path, method: :delete, class: "btn-xs btn-danger my-nav-button", onclick: "return ask(\"Are you sure?\");" %>
-          <% else %>
-            <%= button_to "Sign up", signup_path, method: :get, class: "btn-xs btn-warning my-nav-button" %>
-            <%= button_to "Log in", login_path, method: :get, class: "btn-xs btn-success my-nav-button" %>
-          <% end %>
+          <%= render 'shared/navigation_paths', value: false %>
+          <%= render 'shared/navigation_buttons', value: false %>
         </div>
       </div>
       <%= link_to "Alpha Blog", root_path, class: "navbar-brand", id: "logo" %>
@@ -27,18 +19,10 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><%= link_to "Articles", articles_path, class: "navbar-link" %></li>
-        <li><%= link_to "Create Article", new_article_path, class: "navbar-link" %></li>
-        <li><%= link_to "Users", users_path, class: "navbar-link" %></li>
+        <%= render 'shared/navigation_paths', value: true %>
       </ul>
       <ul class="nav navbar-right navbar-nav">
-        <% if logged_in? %>
-          <li><%= button_to "Update account", update_path, method: :get, class: "btn-xs btn-warning my-nav-button" %></li>
-          <li><%= button_to "Log out", logout_path, method: :delete, class: "btn-xs btn-danger my-nav-button", onclick: "return ask(\"Are you sure?\");" %></li>
-        <% else %>
-          <li><%= button_to "Sign up", signup_path, method: :get, class: "btn-xs btn-warning my-nav-button" %></li>
-          <li><%= button_to "Log in", login_path, method: :get, class: "btn-xs btn-success my-nav-button" %></li>
-        <% end %>
+        <%= render 'shared/navigation_buttons', value: true %>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

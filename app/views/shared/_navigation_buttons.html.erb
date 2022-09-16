@@ -1,0 +1,15 @@
+<% if user_signed_in? %>
+  <% if value %><li><% end %>
+    <%= button_to "Update account", edit_user_registration_path, method: :get, class: "btn-xs btn-warning my-nav-button" %>
+  <% if value %></li><% end %>
+  <% if value %><li><% end %>
+    <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "btn-xs btn-danger my-nav-button", onclick: "return ask(\"Are you sure?\");" %>
+  <% if value %></li><% end %>
+<% else %>
+  <% if value %><li><% end %>
+    <%= button_to "Sign up", new_user_registration_path, method: :get, class: "btn-xs btn-warning my-nav-button" %>
+  <% if value %></li><% end %>
+  <% if value %><li><% end %>
+    <%= button_to "Log in", new_user_session_path, method: :get, class: "btn-xs btn-success my-nav-button" %>
+  <% if value %></li><% end %>
+<% end %>

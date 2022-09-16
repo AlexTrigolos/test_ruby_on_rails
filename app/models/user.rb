@@ -2,10 +2,11 @@
 
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
-  # :recoverable, :registerable, :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :trackable, :rememberable, :validatable
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable, :lockable, :trackable,
+         :recoverable, :rememberable, :validatable
   has_many :articles, dependent: :destroy
-  has_secure_password
+  # has_secure_password
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   # rubocop:disable Rails/UniqueValidationWithoutIndex
   validates :username, presence: true, uniqueness: { case_sensitive: false }, length: { minimum: 3, maximum: 25 }
