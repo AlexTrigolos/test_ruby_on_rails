@@ -51,7 +51,7 @@ gem 'bootsnap', require: false
 # gem "image_processing", "~> 1.2"
 
 group :production do
-  gem "wkhtmltopdf-binary"
+  gem "wkhtmltopdf-heroku"
 end
 
 group :development, :test do
@@ -89,3 +89,4 @@ gem 'sassc-rails', '>= 2.1.0'
 gem 'will_paginate', '3.3.1'
 gem 'will_paginate-bootstrap'
 gem 'wicked_pdf'
+gem 'devise'
