@@ -19,18 +19,6 @@ class ArticlesController < ApplicationController
         render pdf: "Articles", template: 'articles/index', formats: [:html], layout: 'pdf'
       }
     end
-    # respond_to do |format|
-    #   format.html
-    # format.json{
-    #   render json: @articles
-    # }
-    # format.xml{
-    #   render xml: @articles.as_json, template: 'articles/index'
-    # }
-    #   format.pdf{
-    #     render pdf: @articles
-    #   }
-    # end
   end
 
   def new
