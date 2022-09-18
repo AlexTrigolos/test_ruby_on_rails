@@ -1,36 +1,41 @@
-# frozen_string_literal: true
-
-class ArticlesController < ApplicationController
+class Api::V1::ArticlesController < ApplicationController
   before_action :set_article, only: %i[edit update show destroy]
 
   def index
     @articles = Article.order(created_at: 'desc').paginate(page: params[:page], per_page: 3)
-    p User.find(1).valid_password?('password123')
+    p params
     respond_to do |format|
-      format.html
-      format.pdf{
-        @articles = Article.order(created_at: 'desc')
-        @truth_format = 'pdf'
-        render pdf: "Articles", template: 'articles/index', formats: [:html], layout: 'pdf'
+      format.json{
+        render index: @articles
+      }
+      format.xml{
+        render index: @articles
       }
     end
   end
 
-  def new
-    @article = Article.new
-  end
-
   def create
-    # render plain: params[:article].inspect
-    p request
-    @article = Article.new(article_params)
-    @article.user = User.find(session[:user_id]) unless session[:user_id].nil?
-    if @article.save
-      flash[:success] = t('.success')
-      redirect_to article_path(@article)
-    else
-      render :new
-    end
+    user = User.find_by_email(user_params[:email])
+    p article_params[:title], user_params[:email]
+    p user.authenticate(user_params[:password])
+    render :new
+    # @articles = Article.order(created_at: 'desc').paginate(page: params[:page], per_page: 3)
+    # respond_to do |format|
+    #   format.json{
+    #     render index: @articles
+    #   }
+    #   format.xml{
+    #     render index: @articles
+    #   }
+    # end
+    # @article = Article.new(article_params)
+    # @article.user = User.find(session[:user_id]) unless session[:user_id].nil?
+    # if @article.save
+    #   flash[:success] = t('.success')
+    #   redirect_to article_path(@article)
+    # else
+    #   render :new
+    # end
   end
 
   def show
@@ -43,13 +48,6 @@ class ArticlesController < ApplicationController
         render pdf: "Article #{params[:id]}", template: 'articles/show', formats: [:html], layout: 'pdf'
       }
     end
-  end
-
-  def edit
-    return unless @article.user_id != session[:user_id]
-
-    flash[:danger] = t('.danger')
-    redirect_to article_path(@article)
   end
 
   def update
@@ -79,7 +77,11 @@ class ArticlesController < ApplicationController
     params.require(:article).permit(:title, :description)
   end
 
+  def user_params
+    params.require(:user).permit(:email, :password)
+  end
+
   def set_article
-    @article = Article.find(params[:id])
+    # @article = Article.find(params[:id])
   end
 end
