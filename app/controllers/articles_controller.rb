@@ -7,17 +7,6 @@ class ArticlesController < ApplicationController
     @articles = Article.order(created_at: 'desc').paginate(page: params[:page], per_page: 3)
     respond_to do |format|
       format.html
-      format.json{
-        render index: @articles
-      }
-      format.xml{
-        render index: @articles
-      }
-      format.pdf{
-        @articles = Article.order(created_at: 'desc')
-        @truth_format = 'pdf'
-        render pdf: "Articles", template: 'articles/index', formats: [:html], layout: 'pdf'
-      }
     end
   end
 
@@ -26,9 +15,8 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    # render plain: params[:article].inspect
     @article = Article.new(article_params)
-    @article.user = User.find(session[:user_id]) unless session[:user_id].nil?
+    @article.user = current_user if user_signed_in?
     if @article.save
       flash[:success] = t('.success')
       redirect_to article_path(@article)
@@ -41,33 +29,28 @@ class ArticlesController < ApplicationController
     @article = Article.find_by(id: params[:id].to_i)
     respond_to do |format|
       format.html
-      format.json
-      format.xml
-      format.pdf{
-        render pdf: "Article #{params[:id]}", template: 'articles/show', formats: [:html], layout: 'pdf'
-      }
     end
   end
 
   def edit
-    return unless @article.user_id != session[:user_id]
+    return if user_signed_in? && @article.user == current_user
 
     flash[:danger] = t('.danger')
     redirect_to article_path(@article)
   end
 
   def update
-    if @article.user_id == session[:user_id] && @article.update(article_params)
+    if @article.user_id == current_user&.id && @article.update(article_params)
       flash[:success] = t('.success')
       redirect_to article_path(@article)
     else
-      flash[:danger] = t('.danger')
+      flash.now[:danger] = t('.danger')
       render 'edit'
     end
   end
 
   def destroy
-    if @article.user_id == session[:user_id]
+    if @article.user_id == current_user&.id
       @article.destroy
       flash[:success] = t('.success')
       redirect_to articles_path
@@ -81,6 +64,10 @@ class ArticlesController < ApplicationController
 
   def article_params
     params.require(:article).permit(:title, :description)
+  end
+
+  def user_params
+    params.require(:user).permit(:email, :password)
   end
 
   def set_article

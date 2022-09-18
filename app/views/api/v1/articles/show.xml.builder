@@ -1,4 +1,6 @@
-xml.rss('version' => '2.0')do
+# frozen_string_literal: true
+
+xml.rss('version' => '2.0') do
   if @article[:id].nil?
     xml.error('There is no articles')
   else

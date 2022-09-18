@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class RequestresponseTest < ActiveSupport::TestCase
+class Api::V1::ArticlesControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end

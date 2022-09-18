@@ -1,9 +1,10 @@
-json.user(@user.username)
+# frozen_string_literal: true
+
 json.articles do
-  if @user_articles&.empty?
+  if @articles.blank?
     json.error("haven't")
   else
-    json.array! @user_articles do |article|
+    json.array! @articles do |article|
       json.title(article[:title])
       json.description(article[:description])
     end
