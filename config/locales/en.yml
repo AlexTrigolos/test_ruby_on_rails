@@ -36,6 +36,9 @@ en:
 #    require_user:
 #      danger: "You must be logged in to perform that action"
 #    success: "You have logged in by cookies"
+  application:
+    require_user:
+      danger: "You must be logged in to perform that action"
   articles:
     destroy:
       danger: "You can't deleted this article"
@@ -55,7 +58,7 @@ en:
       success: "You have logged out"
     edit:
       danger: "You can't edit this session"
-    success: "You have logged in"
+#    success: "You have logged in"
     update:
       danger: "Article was not updated, mb it's not your article"
       success: "Article was updated"
@@ -64,3 +67,4 @@ en:
       success: "Your account was updated successfully"
     create:
       warning: "There was something wrong with your login information"
+      success: "You have successfully logged in USERRRR"
