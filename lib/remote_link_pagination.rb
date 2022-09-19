@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Style/ClassAndModuleChildren
 module RemoteLinkPagination
   class LinkRenderer < BootstrapPagination::Rails
     def link(text, target, attributes = {})
@@ -13,4 +12,3 @@ module RemoteLinkPagination
     end
   end
 end
-# rubocop:enable Style/ClassAndModuleChildren

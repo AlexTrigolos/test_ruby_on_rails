@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/MethodLength
-# rubocop:disable Metrics/AbcSize
 class AddDeviseToUsers < ActiveRecord::Migration[7.0]
   def self.up
     create_table :users do |t|
@@ -43,5 +41,3 @@ class AddDeviseToUsers < ActiveRecord::Migration[7.0]
     raise ActiveRecord::IrreversibleMigration
   end
 end
-# rubocop:enable Metrics/AbcSize
-# rubocop:enable Metrics/MethodLength

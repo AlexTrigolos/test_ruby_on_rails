@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Style/ClassAndModuleChildren
 class Api::V1::ArticlesController < ApplicationController
   protect_from_forgery with: :null_session
   before_action :set_article, only: %i[update show destroy]
@@ -18,13 +19,14 @@ class Api::V1::ArticlesController < ApplicationController
   end
 
   def create
-    if User.find_by(email: user_params[:email])&.valid_password?(user_params[:password])
-      @article = Article.new(article_params)
-      @article.user = User.find_by(email: user_params[:email])
-      save_article
-    else
-      render json: { error: true, message: 'Invalid email address or password' }, status: :unauthorized
+    user = User.find_by(email: user_params[:email])
+    unless user&.valid_password?(user_params[:password])
+      return render json: { error: true, message: 'Invalid email address or password' }, status: :unauthorized
     end
+
+    @article = Article.new(article_params)
+    @article.user = user
+    save_article
   end
 
   def show
@@ -39,28 +41,30 @@ class Api::V1::ArticlesController < ApplicationController
   end
 
   def update
-    if User.find_by(email: user_params[:email])&.valid_password?(user_params[:password])
-      if @article.user_id == User.find_by(email: user_params[:email]).id
-        update_article
-      else
-        render json: { error: true, message: "Article was not updated, mb it's not your article" }, status: :forbidden
-      end
-    else
-      render json: { error: true, message: 'Invalid email address or password' }, status: :unauthorized
+    user = User.find_by(email: user_params[:email])
+    unless user&.valid_password?(user_params[:password])
+      return render json: { error: true, message: 'Invalid email address or password' }, status: :unauthorized
     end
+
+    unless @article.user_id == user.id
+      return render json: { error: true, message: "Article was not updated, mb it's not your article" },
+                    status: :forbidden
+    end
+
+    update_article
   end
 
   def destroy
-    if User.find_by(email: user_params[:email])&.valid_password?(user_params[:password])
-      if @article.user_id == User.find_by(email: user_params[:email]).id
-        @article.destroy
-        render json: { error: false, message: 'Article was successfully destroyed' }, status: :ok
-      else
-        render json: { error: true, message: "You can't deleted this article" }, status: :forbidden
-      end
-    else
-      render json: { error: true, message: 'Invalid email address or password' }, status: :unauthorized
+    user = User.find_by(email: user_params[:email])
+    unless user&.valid_password?(user_params[:password])
+      return render json: { error: true, message: 'Invalid email address or password' }, status: :unauthorized
     end
+    unless @article.user_id == user.id
+      return render json: { error: true, message: "You can't deleted this article" }, status: :forbidden
+    end
+
+    @article.destroy
+    render json: { error: false, message: 'Article was successfully destroyed' }, status: :ok
   end
 
   private
@@ -77,7 +81,8 @@ class Api::V1::ArticlesController < ApplicationController
     @article = Article.find(params[:id])
   rescue StandardError
     if @article.nil?
-      render json: { error: true, message: "You don't have an article with an ID #{params[:id]}" }, status: :not_found
+      render json: { error: true, message: "You don't have an article with an ID #{params[:id]}" },
+             status: :not_found
     end
   end
 
@@ -99,3 +104,4 @@ class Api::V1::ArticlesController < ApplicationController
     end
   end
 end
+# rubocop:enable Style/ClassAndModuleChildren

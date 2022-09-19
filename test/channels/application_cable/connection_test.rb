@@ -2,7 +2,6 @@
 
 require 'test_helper'
 
-# rubocop:disable Style/ClassAndModuleChildren
 class ApplicationCable
   class ConnectionTest < ActionCable::Connection::TestCase
     # test "connects with cookies" do
@@ -14,4 +13,3 @@ class ApplicationCable
     # end
   end
 end
-# rubocop:enable Style/ClassAndModuleChildren
