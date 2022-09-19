@@ -1,7 +1,9 @@
-xml.rss('version' => '2.0')do
+# frozen_string_literal: true
+
+xml.rss('version' => '2.0') do
   xml.page_title('List of articles:')
 
-  if @articles.nil? or @articles.empty?
+  if @articles.blank?
     xml.error('There is no articles')
   else
     @articles.each do |article|

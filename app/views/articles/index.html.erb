@@ -1,8 +1,8 @@
 <h1 align="center">Listing all articles</h1>
 <ul class="get-format margin-left-right-format">
-  <li><%= link_to "PDF", articles_path(format: :pdf) %></li>
-  <li><%= link_to "JSON", articles_path(format: :json) %></li>
-  <li><%= link_to "XML", articles_path(format: :xml) %></li>
+  <li><%= link_to "PDF", api_v1_articles_path(format: :pdf) %></li>
+  <li><%= link_to "JSON", api_v1_articles_path %></li>
+  <li><%= link_to "XML", api_v1_articles_path(format: :xml) %></li>
 </ul>
 <%= render 'shared/article', obj: @articles %>
 <div align="center">

@@ -2,16 +2,19 @@
 
 Rails.application.routes.draw do
   devise_for :users
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      resources :articles, except: %i[new edit]
+      resources :users, only: :show
+    end
+  end
   root 'pages#index'
   get 'about', to: 'pages#about'
   resources :articles
   get 'signup', to: 'users#new'
   post 'signup', to: 'users#create'
   get 'update', to: 'users#edit'
-  resources :users, except: [:new, :create, :edit]
+  resources :users, except: %i[new create edit]
   get 'login', to: 'sessions#new'
   post 'login', to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'

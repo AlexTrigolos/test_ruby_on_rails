@@ -62,9 +62,12 @@ en:
     update:
       danger: "Article was not updated, mb it's not your article"
       success: "Article was updated"
+    success: "You have successfully logged in"
   users:
     update:
       success: "Your account was updated successfully"
     create:
       warning: "There was something wrong with your login information"
-      success: "You have successfully logged in USERRRR"
+      success: "You have successfully logged in USER"
+    success: "You have successfully logged in USER"
+    warning: "There was something wrong with your login information"

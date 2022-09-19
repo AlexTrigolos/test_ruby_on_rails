@@ -7,6 +7,10 @@ require:
 AllCops:
   NewCops: enable
   TargetRubyVersion: 3.0.4
+  Exclude:
+    - 'db/migrate/20220916174250_add_devise_to_users.rb'
+    - 'db/schema.rb'
+    - 'bin/*'
 
 Style/Documentation:
   Enabled: false

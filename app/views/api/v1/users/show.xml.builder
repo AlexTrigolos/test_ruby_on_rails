@@ -1,4 +1,6 @@
-xml.rss('version' => '2.0')do
+# frozen_string_literal: true
+
+xml.rss('version' => '2.0') do
   xml.user(@user[:username])
   xml.page_title('List of articles:')
 
