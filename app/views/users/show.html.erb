@@ -6,9 +6,9 @@
 </div>
 <h4 style="text-align: center;"><%= @user.username %>'s articles</h4>
 <ul class="get-format margin-left-right-format">
-  <li><%= link_to "PDF", user_path(format: :pdf) %></li>
-  <li><%= link_to "JSON", user_path(format: :json) %></li>
-  <li><%= link_to "XML", user_path(format: :xml) %></li>
+  <li><%= link_to "PDF", api_v1_user_path(format: :pdf) %></li>
+  <li><%= link_to "JSON", api_v1_user_path %></li>
+  <li><%= link_to "XML", api_v1_user_path(format: :xml) %></li>
 </ul>
 <%= render 'shared/article', obj: @user_articles %>
 <div align="center">

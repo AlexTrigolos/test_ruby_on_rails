@@ -1,1 +1,3 @@
-Mime::Type.register "application/pdf", :pdf # for older versions
+# frozen_string_literal: true
+
+# Mime::Type.register 'application/pdf', :pdf # for older versions
