@@ -66,10 +66,6 @@ class ArticlesController < ApplicationController
     params.require(:article).permit(:title, :description)
   end
 
-  def user_params
-    params.require(:user).permit(:email, :password)
-  end
-
   def set_article
     @article = Article.find(params[:id])
   end
