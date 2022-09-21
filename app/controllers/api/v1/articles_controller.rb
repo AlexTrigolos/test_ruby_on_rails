@@ -6,12 +6,16 @@ class Api::V1::ArticlesController < ApplicationController
   before_action :set_article, only: %i[update show destroy]
 
   def index
-    @articles = Article.order(created_at: 'desc').paginate(page: params[:page], per_page: 3)
+    articles_index
     respond_to do |format|
-      format.json
-      format.xml
+      format.json {
+        @articles = @articles.order(created_at: 'desc').paginate(page: params[:page], per_page: 5)
+      }
+      format.xml {
+        @articles = @articles.order(created_at: 'desc').paginate(page: params[:page], per_page: 5)
+      }
       format.pdf do
-        @articles = Article.order(created_at: 'desc')
+        @articles = @articles.order(created_at: 'desc')
         @truth_format = 'pdf'
         render pdf: 'Articles', template: 'articles/index', formats: [:html], layout: 'pdf'
       end
@@ -71,6 +75,10 @@ class Api::V1::ArticlesController < ApplicationController
 
   def article_params
     params.require(:article).permit(:title, :description)
+  end
+
+  def search_params
+    params.require(:search).permit(:option, :query)
   end
 
   def user_params

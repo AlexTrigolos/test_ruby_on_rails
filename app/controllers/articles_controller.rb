@@ -4,10 +4,10 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: %i[edit update show destroy]
 
   def index
-    @articles = Article.order(created_at: 'desc').paginate(page: params[:page], per_page: 3)
-    respond_to do |format|
-      format.html
-    end
+    articles_index
+    return @articles = @articles.order(created_at: 'desc').paginate(page: params[:page], per_page: 3) if @query.blank?
+
+    @articles = @articles.order(created_at: 'desc').paginate(page: params[:page], per_page: 10)
   end
 
   def new

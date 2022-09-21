@@ -11,6 +11,4 @@
   <li><%= link_to "XML", api_v1_user_path(format: :xml) %></li>
 </ul>
 <%= render 'shared/article', obj: @user_articles %>
-<div align="center">
-  <%= will_paginate @user_articles, renderer: RemoteLinkPagination::LinkRenderer if @truth_format != 'pdf' %>
-</div>
+<%= render 'shared/will_paginate', locals: {obj: @user_articles, truth_format: @truth_format} %>
