@@ -4,11 +4,10 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: %i[edit update show destroy]
 
   def index
-    @articles = Article.order(created_at: 'desc').paginate(page: params[:page], per_page: 3)
-    @search = Search.all
-    respond_to do |format|
-      format.html
-    end
+    articles_index
+    return @articles = @articles.order(created_at: 'desc').paginate(page: params[:page], per_page: 3) if @query.blank?
+
+    @articles = @articles.order(created_at: 'desc').paginate(page: params[:page], per_page: 10)
   end
 
   def new
@@ -61,49 +60,13 @@ class ArticlesController < ApplicationController
     end
   end
 
-  def search
-    @search = Search.all
-    @option = search_params[:option]
-    @query = search_params[:query]
-    return redirect_to :articles if @query.empty?
-
-    @articles = search_by_ids if @option == 'id' || @option == 'user_id'
-    @articles = search_by_article if @option == 'title' || @option == 'description'
-    @articles = search_by_user if @option == 'username' || @option == 'email'
-    @articles = search_by_everywhere if @option == 'everywhere'
-    @articles = @articles.order(created_at: 'desc').paginate(page: params[:page], per_page: 10)
-  end
-
   private
 
   def article_params
     params.require(:article).permit(:title, :description)
   end
 
-  def search_params
-    params.require(:search).permit(:option, :query)
-  end
-
   def set_article
     @article = Article.find(params[:id])
-  end
-
-  def search_by_ids(option: @option)
-    Article.where("#{option} = ?", @query.to_i)
-  end
-
-  def search_by_article(option: @option)
-    Article.where("#{option} LIKE ?", "%#{@query}%")
-  end
-
-  def search_by_user(option: @option)
-    Article.joins(:user).where("users.#{option} LIKE ?", "%#{@query}%")
-  end
-
-  def search_by_everywhere
-    search_by_user(option: 'email')
-      .or(search_by_user(option: 'username'))
-      .or(search_by_article(option: 'title'))
-      .or(search_by_article(option: 'description'))
   end
 end

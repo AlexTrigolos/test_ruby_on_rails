@@ -6,13 +6,11 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :articles, except: %i[new edit]
       resources :users, only: :show
-      get 'search', to: 'articles#search'
     end
   end
   root 'pages#index'
   get 'about', to: 'pages#about'
   resources :articles
-  get 'search', to: 'articles#search'
   get 'signup', to: 'users#new'
   post 'signup', to: 'users#create'
   get 'update', to: 'users#edit'

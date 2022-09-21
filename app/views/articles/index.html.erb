@@ -1,9 +1,15 @@
-<h1 align="center">Listing all articles</h1>
+<h1 align="center">
+  <% if @query.blank? %>
+    Listing all articles
+  <% else %>
+    Search '<%= @query %>' by <%= @option %>
+  <% end %>
+</h1>
 <ul class="get-format margin-left-right-format">
-  <li><%= link_to "PDF", api_v1_articles_path(format: :pdf) %></li>
-  <li><%= link_to "JSON", api_v1_articles_path %></li>
-  <li><%= link_to "XML", api_v1_articles_path(format: :xml) %></li>
+  <li><%= link_to "PDF", api_v1_articles_path(format: :pdf, option: @option, query: @query) %></li>
+  <li><%= link_to "JSON", api_v1_articles_path(option: @option, query: @query) %></li>
+  <li><%= link_to "XML", api_v1_articles_path(format: :xml, option: @option, query: @query) %></li>
 </ul>
-<%= render 'shared/search_form', model: @search %>
+<%= render 'shared/search_form' %>
 <%= render 'shared/article', obj: @articles %>
-<%= render 'shared/will_paginate', locals: {obj: @articles, truth_format: @truth_format} %>
+<%= render 'shared/will_paginate', locals: { obj: @articles, truth_format: @truth_format } %>

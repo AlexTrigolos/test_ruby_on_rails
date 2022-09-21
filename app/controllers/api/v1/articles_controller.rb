@@ -6,12 +6,16 @@ class Api::V1::ArticlesController < ApplicationController
   before_action :set_article, only: %i[update show destroy]
 
   def index
-    @articles = Article.order(created_at: 'desc').paginate(page: params[:page], per_page: 3)
+    articles_index
     respond_to do |format|
-      format.json
-      format.xml
+      format.json {
+        @articles = @articles.order(created_at: 'desc').paginate(page: params[:page], per_page: 5)
+      }
+      format.xml {
+        @articles = @articles.order(created_at: 'desc').paginate(page: params[:page], per_page: 5)
+      }
       format.pdf do
-        @articles = Article.order(created_at: 'desc')
+        @articles = @articles.order(created_at: 'desc')
         @truth_format = 'pdf'
         render pdf: 'Articles', template: 'articles/index', formats: [:html], layout: 'pdf'
       end
@@ -67,33 +71,6 @@ class Api::V1::ArticlesController < ApplicationController
     render json: { error: false, message: 'Article was successfully destroyed' }, status: :ok
   end
 
-  def search
-    @option = search_params[:option]
-    @query = search_params[:query]
-    return redirect_to :articles if @query.empty?
-
-    @search = Search.all
-    @articles = search_by_ids if @option == 'id' || @option == 'user_id'
-    @articles = search_by_article if @option == 'title' || @option == 'description'
-    @articles = search_by_user if @option == 'username' || @option == 'email'
-    @articles = search_by_everywhere if @option == 'everywhere'
-    @articles = @articles.order(created_at: 'desc')
-    respond_to do |format|
-      format.json do
-        @articles = @articles.order(created_at: 'desc').paginate(page: params[:page], per_page: 5)
-        render :search
-      end
-      format.xml do
-        @articles = @articles.order(created_at: 'desc').paginate(page: params[:page], per_page: 5)
-        render :search
-      end
-      format.pdf do
-        @truth_format = 'pdf'
-        render pdf: 'Articles', template: 'articles/search', formats: [:html], layout: 'pdf'
-      end
-    end
-  end
-
   private
 
   def article_params
@@ -133,25 +110,6 @@ class Api::V1::ArticlesController < ApplicationController
       render json: { error: true, message: "Incorrect data: #{@article.errors.full_messages}" },
              status: :not_acceptable
     end
-  end
-
-  def search_by_article(option: @option)
-    Article.where("#{option} LIKE ?", "%#{@query}%")
-  end
-
-  def search_by_ids(option: @option)
-    Article.where("#{option} = ?", @query.to_i)
-  end
-
-  def search_by_user(option: @option)
-    Article.joins(:user).where("users.#{option} LIKE ?", "%#{@query}%")
-  end
-
-  def search_by_everywhere
-    search_by_user(option: 'email')
-      .or(search_by_user(option: 'username'))
-      .or(search_by_article(option: 'title'))
-      .or(search_by_article(option: 'description'))
   end
 end
 # rubocop:enable Style/ClassAndModuleChildren
