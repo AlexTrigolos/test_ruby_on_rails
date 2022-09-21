@@ -4,8 +4,6 @@
   <li><%= link_to "JSON", api_v1_articles_path %></li>
   <li><%= link_to "XML", api_v1_articles_path(format: :xml) %></li>
 </ul>
+<%= render 'shared/search_form', model: @search %>
 <%= render 'shared/article', obj: @articles %>
-<div align="center">
-  <%= will_paginate @articles, renderer: RemoteLinkPagination::LinkRenderer if @truth_format != 'pdf' %>
-</div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<%= render 'shared/will_paginate', locals: {obj: @articles, truth_format: @truth_format} %>

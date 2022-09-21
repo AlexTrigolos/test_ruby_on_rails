@@ -1,0 +1,9 @@
+<h1 align="center">Search '<%= @query %>' by <%= @option %></h1>
+<ul class="get-format margin-left-right-format">
+  <li><%= link_to "PDF", api_v1_search_path(format: :pdf, search: { option: @option, query: @query }) %></li>
+  <li><%= link_to "JSON", api_v1_search_path(search: { option: @option, query: @query }) %></li>
+  <li><%= link_to "XML", api_v1_search_path(format: :xml, search: { option: @option, query: @query }) %></li>
+</ul>
+<%= render 'shared/search_form', model: @search %>
+<%= render 'shared/article', obj: @articles %>
+<%= render 'shared/will_paginate', locals: { obj: @articles, truth_format: @truth_format } %>

@@ -1,0 +1,22 @@
+<%= form_with model: model, url: "/search", method: :get, :html => { class: 'form-horizontal' } do |form| %>
+  <div class="form-group">
+    <div class="control-label col-sm-4">
+      <%= form.label :option, "Search by:" %>
+      <%= form.label :query, "&nbsp;".html_safe %>
+      <%= form.select :option, [["everywhere exclude ids", "everywhere"],
+                                ["user email", "email"],
+                                ["user name", "username"],
+                                ["article title", "title"],
+                                ["article description", "description"],
+                                ["article id", 'id'],
+                                ["user id", 'user_id']],
+                      selected: @option || 'title' %>
+    </div>
+    <div class="col-sm-5">
+      <%= form.text_field :query, value: @query, class: "form-control" %>
+    </div>
+    <div class="col-sm-2">
+      <%= form.submit "Search" %>
+    </div>
+  </div>
+<% end %>
