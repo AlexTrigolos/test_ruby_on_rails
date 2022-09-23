@@ -2,7 +2,7 @@
 
 # rubocop:disable Style/ClassAndModuleChildren
 class Api::V1::ArticlesController < ApplicationController
-  protect_from_forgery with: :null_session
+  # protect_from_forgery with: :null_session
   before_action :set_article, only: %i[update show destroy]
 
   def index
