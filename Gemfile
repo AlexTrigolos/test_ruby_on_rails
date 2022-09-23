@@ -51,7 +51,7 @@ gem 'bootsnap', require: false
 # gem "image_processing", "~> 1.2"
 
 group :production do
-  gem "wkhtmltopdf-heroku"
+  gem 'wkhtmltopdf-heroku'
 end
 
 group :development, :test do
@@ -65,7 +65,7 @@ group :development do
   gem 'rubocop-performance', '~> 1.11', require: false
   gem 'rubocop-rails', '~> 2.11', require: false
   gem 'web-console'
-  gem "wkhtmltopdf-binary"
+  gem 'wkhtmltopdf-binary'
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
@@ -84,8 +84,9 @@ end
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap-sass', '~> 3.4.1'
 gem 'bootstrap-will_paginate', '1.0.0'
+gem 'devise'
 gem 'jquery-rails'
 gem 'sassc-rails', '>= 2.1.0'
+gem 'wicked_pdf'
 gem 'will_paginate', '3.3.1'
 gem 'will_paginate-bootstrap'
-gem 'wicked_pdf'

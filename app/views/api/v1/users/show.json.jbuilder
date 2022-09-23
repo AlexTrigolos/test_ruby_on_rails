@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.user(@user.username)
 json.articles do
   if @user_articles&.empty?

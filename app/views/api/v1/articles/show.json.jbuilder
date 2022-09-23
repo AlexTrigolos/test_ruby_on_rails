@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.article do
   if @article[:id].nil?
     json.error("Haven't aticle")

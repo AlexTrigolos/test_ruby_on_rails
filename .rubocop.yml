@@ -7,6 +7,33 @@ require:
 AllCops:
   NewCops: enable
   TargetRubyVersion: 3.0.4
+  Exclude:
+    - 'db/migrate/20220916174250_add_devise_to_users.rb'
+    - 'db/schema.rb'
+    - 'bin/*'
+
+Metrics/PerceivedComplexity:
+  Exclude:
+    - 'app/controllers/articles_controller.rb'
+    - 'app/controllers/api/v1/articles_controller.rb'
+
+Metrics/ClassLength:
+  Exclude:
+    - 'app/controllers/api/v1/articles_controller.rb'
+
+Metrics/MethodLength:
+  Exclude:
+    - 'app/controllers/api/v1/articles_controller.rb'
+
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - 'app/controllers/articles_controller.rb'
+    - 'app/controllers/api/v1/articles_controller.rb'
+
+Metrics/AbcSize:
+  Exclude:
+    - 'app/controllers/articles_controller.rb'
+    - 'app/controllers/api/v1/articles_controller.rb'
 
 Style/Documentation:
   Enabled: false

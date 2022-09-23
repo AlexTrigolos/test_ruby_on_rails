@@ -2,43 +2,42 @@
 
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  helper_method :current_user, :logged_in?
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
-  def current_user
-    user = session[:user_id].present? ? user_from_session : user_from_token
+  protected
 
-    @current_user ||= user
+  def articles_index
+    @option = params[:option]
+    @query = params[:query]
+    return @articles = Article.order(created_at: 'desc') if @query.blank?
+
+    @articles = search_by_article if @option == 'title' || @option == 'description'
+    @articles = search_by_user if @option == 'username' || @option == 'email'
+    @articles = search_by_everywhere if @option == 'everywhere'
+    @articles
   end
 
-  def logged_in?
-    !!current_user
-  end
-
-  def require_user
-    return if logged_in?
-
-    # rubocop:disable Rails/I18nLocaleTexts
-    flash[:danger] = 'You must be logged in to perform that action'
-    # rubocop:enable Rails/I18nLocaleTexts
-    redirect_to root_path
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:username])
+    devise_parameter_sanitizer.permit(:sign_in) do |user_params|
+      user_params.permit(:email)
+    end
   end
 
   private
 
-  def user_from_session
-    User.find(session[:user_id])
+  def search_by_article(option: @option)
+    Article.where("#{option} LIKE ?", "%#{Article.sanitize_sql_like(@query)}%")
   end
 
-  def user_from_token
-    user = User.find_by(id: cookies.encrypted[:user_id])
-    token = cookies.encrypted[:remember_token]
+  def search_by_user(option: @option)
+    Article.joins(:user).where("users.#{option} LIKE ?", "%#{Article.sanitize_sql_like(@query)}%")
+  end
 
-    return unless user&.remember_token_authenticated?(token)
-
-    session[:user_id] = user.id
-    # rubocop:disable Rails/I18nLocaleTexts
-    flash[:success] = 'You have logged in by cookies'
-    # rubocop:enable Rails/I18nLocaleTexts
-    user
+  def search_by_everywhere
+    search_by_user(option: 'email')
+      .or(search_by_user(option: 'username'))
+      .or(search_by_article(option: 'title'))
+      .or(search_by_article(option: 'description'))
   end
 end

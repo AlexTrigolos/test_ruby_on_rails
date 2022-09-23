@@ -3,9 +3,9 @@
 <head>
   <meta charset='utf-8' />
   <%= wicked_pdf_stylesheet_link_tag "custom" -%>
-  <%= wicked_pdf_javascript_include_tag "number_pages" %>
+  <%#= wicked_pdf_javascript_include_tag "number_pages" %>
 </head>
-<body onload='number_pages'>
+<body>
 <div id="header" align="center">
   <%= wicked_pdf_image_tag 'mysite.jpg' %>
 </div>

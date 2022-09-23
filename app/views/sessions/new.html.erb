@@ -1,14 +1,11 @@
+<!--    лучше использовать form_with-->
 <%= form_for(:session, :html => {class: "form-horizontal", role: "form"}, url: login_path) do |f| %>
   <div class="form-group">
     <div class="control-label col-sm-2">
       <%= f.label :email %>
     </div>
     <div class="col-sm-8">
-      <% if params[:session].nil? %>
-        <%= f.text_field :email, class: "form-control", placeholder: "Enter email"%>
-      <% else %>
-        <%= f.text_field :email, class: "form-control", value: params[:session][:email], placeholder: "Enter email", autofocus: true %>
-      <% end %>
+      <%= f.text_field :email, class: "form-control", placeholder: "Enter email", autofocus: true %>
     </div>
   </div>
   <div class="form-group">
@@ -21,15 +18,7 @@
   </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <div class="form-check">
-        <%= f.check_box :remember_me, class: 'form-check-input', value: '1' %>
-        <%= f.label :remember_me, class: 'form-check-label' %>
-      </div>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <%= f.submit "Log in", class: 'btn btn-primary btn-large' %>
+      <%= f.submit "Log in", class: 'btn btn-primary btn-xs' %>
     </div>
   </div>
 <% end %>
