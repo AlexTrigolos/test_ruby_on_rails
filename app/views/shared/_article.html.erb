@@ -1,8 +1,3 @@
-<ul class="get-format margin-left-right-format">
-  <li><%= link_to "PDF", articles_path(format: :pdf) %></li>
-  <li><%= link_to "JSON", articles_path(format: :json) %></li>
-  <li><%= link_to "XML", articles_path(format: :xml) %></li>
-</ul>
 <% index = 0 %>
 <% obj.each do |article| %>
   <% index += 1 %>
