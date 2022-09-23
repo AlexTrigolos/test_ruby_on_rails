@@ -52,6 +52,7 @@ gem 'bootsnap', require: false
 
 group :production do
   gem 'wkhtmltopdf-heroku'
+  gem 'wkhtmltopdf-binary'
 end
 
 group :development, :test do
