@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :articles, except: %i[new edit]
       resources :users, only: :show
+      resources :news, only: :index
     end
   end
   root 'pages#index'
