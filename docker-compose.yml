@@ -2,17 +2,24 @@ version: '3'
 services:
   db:
     image: postgres:14
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=test_app_rails_development
-      - POSTGRES_USER=test_app_rails
-      - POSTGRES_PASSWORD=administrator
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - '54333:5432'
   web:
     build: .
-    command: bundle exec rails s -p 3000 -b '127.0.0.1'
+    command: tail -f /dev/null
     volumes:
       - .:/test_app_rails
+      - /test_app_rails/node_modules
     hostname: localhost
+    working_dir: C:\Users\Alex\RubymineProjects\test_app_rails
     ports:
       - "3000:3000"
+      # Ports required for debugging
+      - "1234:1234"
+      - "26166:26168"
     depends_on:
       - db
